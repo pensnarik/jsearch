@@ -98,6 +98,7 @@ void process_dir(const char *dirname)
     sprintf(fullpath, "%s/%s", dirname, de->d_name);        
     stat(fullpath, &sb);
     printf("%s\n", fullpath);
+    /* If sym link - do not follow */
     if ( sb.st_mode & S_IFLNK ) exit(0);
     switch ( sb.st_mode & S_IFMT ) {
       case S_IFDIR:
