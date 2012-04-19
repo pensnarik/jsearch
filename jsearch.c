@@ -92,14 +92,18 @@ void process_dir(const char *dirname)
     fprintf(stderr, "Error: cannot open dir %s\n", dirname);
     return;
   }
+  int err;
   while((de = readdir(dirp)) != 0) {
     if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0) continue;
     //printf("%s\n", de->d_name);
     sprintf(fullpath, "%s/%s", dirname, de->d_name);        
-    stat(fullpath, &sb);
-    printf("%s [%x]\n", fullpath, sb.st_mode);
+    err = lstat(fullpath, &sb);
+    //printf("%s\n", fullpath);
     /* If sym link - do not follow */
-    //if ( sb.st_mode & S_IFLNK ) exit(0);
+    if ( S_ISLNK( sb.st_mode )) {
+      printf("SYMLINK!\n");
+      continue;
+    }
     switch ( sb.st_mode & S_IFMT ) {
       case S_IFDIR:
         //printf("<DIR>\n");
