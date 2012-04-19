@@ -55,7 +55,7 @@ void process_file(const char *filename)
 {
   FILE *f;
   char buf[10];
-  fprintf(stdout, "%s\n", filename);
+  //fprintf(stdout, "%s\n", filename);
   char ext[20];
   total_count++;
   if(file_ext(filename, (char *) ext)) {
@@ -97,9 +97,9 @@ void process_dir(const char *dirname)
     //printf("%s\n", de->d_name);
     sprintf(fullpath, "%s/%s", dirname, de->d_name);        
     stat(fullpath, &sb);
-    printf("%s\n", fullpath);
+    printf("%s [%x]\n", fullpath, sb.st_mode);
     /* If sym link - do not follow */
-    if ( sb.st_mode & S_IFLNK ) exit(0);
+    //if ( sb.st_mode & S_IFLNK ) exit(0);
     switch ( sb.st_mode & S_IFMT ) {
       case S_IFDIR:
         //printf("<DIR>\n");
