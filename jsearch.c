@@ -101,7 +101,6 @@ void process_dir(const char *dirname)
     //printf("%s\n", fullpath);
     /* If sym link - do not follow */
     if ( S_ISLNK( sb.st_mode )) {
-      printf("SYMLINK!\n");
       continue;
     }
     switch ( sb.st_mode & S_IFMT ) {
